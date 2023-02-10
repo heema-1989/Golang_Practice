@@ -1,0 +1,50 @@
+we cannot change the datatype of a variable when we reassign a value to it.
+here curly braces will be after the condition and not in the next line
+there will only be one package main in a folder
+there will only be one func main() in go file this func should be where we import the package
+the variable name should not contain the punctuation marks, should not start with digit or underscore
+standard naming convention for variables in golang is giving such names that reflect the actual meaning of what the variable will do
+use import and package file path to use the function of a particular package in main file 
+go varibles can be reassigned but with value of same datatype
+go datatypes:
+int, float64, bool,string,rune
+default values- 0, 0.0, false,"",""
+import reflect and use TypeOf function to check the type of variable
+for accessing any function of another package in main func use packagename.funcname
+to convert stirng into an integer import strconv and use Atoi(ascii to integer) function Itoa(integer to asciii)
+to convert to float use ParseFLoat
+var Args []string //this args is a string slice which can store multiple string values. HERE STRING VALUES CAN BE ACCESSED USING INDEXING
+	//here args is a variable and it stores command line arguments and its path-->here import os to use this
+Atoi takes two arguments first the string to be converted and second error
+Itoa takes only one argument i.e. int 
+
+//fmt is a Go package that is used to format basic strings, values, inputs, and outputs. It can also be used to print and write from the terminal. Additionally, Go has formats called verbs. A verb is a placeholder for a named value to be formatted.
+
+Let’s take a look at some of them:
+
+%v represents the named value in its default format
+%T represents the type of the value
+%d expects value to be an integer type of base 10
+%b expects value to be an integer type of base 2
+%s the bytes of string or slice
+%f expects value to have a float type
+length of string or variable use array= len()
+
+raw string literal= ``- this doesn't process the data in string
+len() function only counts bytes in a string. when we are working with non english characters which take up more no. of bytes it is not convenient to use len.
+For doing so, import unicode/utf-8 package and use RuneCountInString
+All string literals are utf-8 encoded but values are not. so when we use len() function it will only give us total no. of bytes
+use iota in const declaration. it works as auto-incrementing numbers. iota starts form 0 and then the succeeding const values will have incremented values
+nil means a vlaue is not initialized yet
+nil means there is no error
+duplicate case conditions in switch not allowed and go adds break statements to the switch case automatically
+there is only one default statement in switch and order doesn't matter
+switch case by default condition is true
+strings.Fields splits the string based on whitespace and convert it into a slice of string
+rand package implements pseudo random number generators
+Intn produces a random number integer between a range [0,n)--non negative
+Unix returns the time in seconds as int64 value, UnixNano in nanoseconds
+the replace method in string takes four parameters string in which the replacement is need to be done, word to be replace, replaced word, and no. of occurences to change, if no.
+of occurences <0 then all change
+runes are unicodes that represent characters
+import time and use time.Now().Year()/MonthDayHourSecondMinute
