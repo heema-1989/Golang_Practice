@@ -48,3 +48,25 @@ the replace method in string takes four parameters string in which the replaceme
 of occurences <0 then all change
 runes are unicodes that represent characters
 import time and use time.Now().Year()/MonthDayHourSecondMinute
+panics are just used for error handling
+lexar in golang checks or validates whether the grammar of code is correct. Prior to compilation it checks the syntax of code
+in golang slices ar emore used than arrays. slices are just under the hood arrays. when arrays get some abstraction
+and more features they become slices.
+while decalring slices you don't need to define the size unlike arrays
+in slice append(slicename, values) appends values
+-->but append(slciename[startval,endval]) gives a slice from slice
+two ways to allocate memory in golang-->new() and make()
+hence you cannot append in array becoz it has fixed size
+here the size of array not defined so its a slice and use append in slice only
+/here using make we cane use append--this make reallocates the memory
+in slice we can use sort method to sort the slice. we cant use this in array
+here if slice is bydefault sorted then also it will give true
+structs are alternate version of classes
+to access individual values wirte the varname.Fieldname in structs
+syntax-->type stname struct-->name with first capital letter then in curly brace fieldnames and their types 
+maps use key-values store
+Keep first letter capital in name of structs
+main() acts as a entry point for your program
+cannot define function inside a function in golang
+taking multiple arguments in function using slice--->(slicename ...type)
+after arguments write the return type in function-->ex. (int,string)
