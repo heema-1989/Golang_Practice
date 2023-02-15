@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	//"errors"
 )
 
 var usr Users
@@ -16,9 +17,14 @@ func ValidateUsers(u *[]Users) {
 
 	card_no, err := strconv.Atoi(strings.TrimSpace(inp))
 	if err != nil {
-		fmt.Println("Please enter valid input. Enter digits only")
-		return
+		panic("please enter valid input. Enter digits only")
+		
 	}
+	defer func(){
+		if r:=recover();r!=nil{
+			fmt.Println(r)
+		}
+	}()
 	for _, val := range *u {
 		if card_no == val.CardNo {
 			usr = val
@@ -33,23 +39,27 @@ func ValidateUsers(u *[]Users) {
 	count := 0
 PIN:
 	for {
-		if count == 4 {
-			fmt.Println("Maximum limit for entering pin exceeded.Please try again after some time.")
-			return
-		}
+		
 
 		fmt.Println("Please enter your pin number.")
 		inp, _ = reader.ReadString('\n')
 		pin_no, err1 := strconv.Atoi(strings.TrimSpace(inp))
 		if err1 != nil {
 			fmt.Println("Please enter valid input. Enter digits only")
-			return
+			goto PIN
 		}
 		if pin_no != usr.PinNo {
-			fmt.Println("Please enter valid pin number...")
-			fmt.Println("Only 3 attempts left.Enter valid pin.")
-			count++
-			goto PIN
+			
+			if count >= 3 {
+				log.Fatal("Maximum limit for entering pin exceeded.Please try again after some time.")
+				return
+			}else{
+				fmt.Println("Please enter valid pin number...")
+				fmt.Printf("\nOnly %d attempts left.Enter valid pin.",3-count)
+				count++
+				goto PIN
+			}
+			
 		} else {
 			fmt.Println("--------------------------------------------")
 			fmt.Println("Successfully logged in to your account..")

@@ -8,13 +8,16 @@ import (
 
 func DepositMoney(u *[]Users) {
 
-	fmt.Println("Please enter amount to be deposited.")
+	DEPOSIT:fmt.Println("Please enter amount to be deposited.")
 	inp, _ := reader.ReadString('\n')
-	depAmt, _ := strconv.ParseFloat(strings.TrimSpace(inp), 64)
+	depAmt, err := strconv.ParseFloat(strings.TrimSpace(inp), 64)
+	if err != nil {
+		fmt.Println("Please enter valid input. Enter digits only")
+		goto DEPOSIT
+	}
 	fmt.Println("Your current balance is: ", usr.Balance)
-
 	usr.Balance += depAmt
-	fmt.Printf("You have successfully withdrawn %.2f\n", depAmt)
-	fmt.Printf("Your current balance is: %.2f\n", usr.Balance)
+	fmt.Printf("You have successfully deposited %.2f\n", depAmt)
+	fmt.Printf("Your new balance is: %.2f\n", usr.Balance)
 
 }

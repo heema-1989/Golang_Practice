@@ -12,15 +12,15 @@ import (
 var reader = bufio.NewReader(os.Stdin)
 
 func main() {
-	users := []functions.Users{{"Heema Goratela", 6351545, 1905, "Savings", 40000},
-		{"Dhatri Goratela", 9428319, 2006, "Fixed Deposit", 50000},
-		{"Khushi Rajpal", 4567834, 1876, "Recurring", 30000},
-		{"Riya Sonara", 3498744, 2060, "Savings", 40000}}
+	users := []functions.Users{{Username: "Heema Goratela", CardNo: 6351545, PinNo: 1905, AccountType: "Savings", Balance: 40000},
+		{Username: "Dhatri Goratela", CardNo: 9428319, PinNo: 2006, AccountType: "Fixed Deposit", Balance: 50000},
+		{Username: "Khushi Rajpal", CardNo: 4567834, PinNo: 1876, AccountType: "Recurring", Balance: 30000},
+		{Username: "Riya Sonara", CardNo: 3498744, PinNo: 2060, AccountType: "Savings", Balance: 40000}}
 	fmt.Println("--------------------------------------------------------------------------------------")
 	fmt.Println("Welcome to our ATM.Please enter your credentials as asked.")
 	fmt.Println("--------------------------------------------------------------------------------------")
 	functions.ValidateUsers(&users)
-	for {
+		MENU:
 		fmt.Println("Please choose any one from the below mentioned options..")
 		fmt.Println("--------------------------------------------")
 		fmt.Println("1. Withdraw money from ATM.")
@@ -37,13 +37,16 @@ func main() {
 		switch choice {
 		case 1:
 			functions.WithdrawMoney(&users)
+			goto MENU
 		case 2:
 			functions.DepositMoney(&users)
+			goto MENU
+		case 3:
+			functions.CheckBalance(&users)
+			goto MENU
 		case 4:
-			break
+			fmt.Println("Thank you for using our service.Have anice day!")
+			
 		}
-	}
-
-	fmt.Println("Thank you for choosing our ATM")
-	return
+	
 }
