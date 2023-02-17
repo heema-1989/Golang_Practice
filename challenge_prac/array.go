@@ -13,5 +13,6 @@ func main() {
 	fmt.Print(arr1)
 	var strArr = [4]string{}
 	fmt.Print(strArr)
-
+	var arr2,arr3 [4]int=[4]int{1,2,3,4},[4]int{2,3,4,5}
+	arr5:=[4]int
 }

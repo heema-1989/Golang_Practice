@@ -14,4 +14,8 @@ func main() {
 		i = rand.Intn(guess + 1)
 		fmt.Printf("%d", i)
 	}
+	num := 7
+	ptr := &num
+	*ptr += 1
+	fmt.Println(num)
 }
