@@ -10,6 +10,7 @@ import (
 )
 
 type Customer struct {
+	//Place string
 	gorm.Model
 
 	Orders       []Order `gorm:"many2many:customer_orders"`
@@ -40,8 +41,10 @@ func main() {
 	} else {
 		fmt.Println("Successfully connected to database")
 	}
-	/*Db.AutoMigrate(&Customer{})
-	Db.AutoMigrate(&Order{})
+	//Db.AutoMigrate(&Customer{})
+	Db.Migrator().DropColumn(&Customer{}, "place")
+
+	/*Db.AutoMigrate(&Order{})
 	for i, _ := range customer {
 
 		Db.Create(&customer[i])
@@ -56,7 +59,7 @@ func main() {
 	router.HandleFunc("/customerOrders", getCustomerOrders).Methods("GET")
 	router.HandleFunc("/customerOrder/{id}", getCustomerOrder).Methods("GET")
 	router.HandleFunc("create/c", createCustomer).Methods("POST")
-	router.HandleFunc("create/o", createOrder).Methods("POST")
+
 	http.ListenAndServe(":8000", router)
 }
 func getCustomers(w http.ResponseWriter, r *http.Request) {
@@ -86,22 +89,11 @@ func getCustomerOrder(w http.ResponseWriter, r *http.Request) {
 func createCustomer(w http.ResponseWriter, r *http.Request) {
 	var customer Customer
 	json.NewDecoder(r.Body).Decode(&customer)
-	p := DB.Create(&customer)
+	p := Db.Create(&customer)
 	e = p.Error
 	if e != nil {
-		json.NewEncoder(w).Encode(err)
+		json.NewEncoder(w).Encode(e)
 	} else {
 		json.NewEncoder(w).Encode(&customer)
-	}
-}
-func createOrder(w http.ResponseWriter, r *http.Request) {
-	var order Person
-	json.NewDecoder(r.Body).Decode(&order)
-	p := Db.Create(&order)
-	e = p.Error
-	if e != nil {
-		json.NewEncoder(w).Encode(err)
-	} else {
-		json.NewEncoder(w).Encode(&order)
 	}
 }

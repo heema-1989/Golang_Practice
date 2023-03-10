@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+  <style>
+    .container{
+      width: 50%;
+      height: 50%;
+      background-color: rgb(192, 192, 197);
+    }
+    form{
+      display: block;
+      padding: 20px;
+    }
+    input{
+      display: block;
+      font-size: 30px;
+    }
+    p{
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Update your details</h1>
+  {{if .flag}}
+  <form    method="POST" action="/updated" >
+    <input type="hidden" name="id" value="{{.Id}}">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" value="{{.Name}}"><br>
+    <label for="email">Email: </label>
+    <input type="text" name="email" id="email" value="{{.Email}}"><br>
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="username" value="{{.Username}}"><br>
+    <label for="pwd">Password: </label>
+    <input type="password" name="password" id="pwd" value="{{.Password}}"><br>
+    <input type="submit" value="Update">
+  </form>
+  {{else}}
+  <p>Sorry, record not found</p>
+  {{end}}
+  <br><br>
+</div>
+</body>
+</html>

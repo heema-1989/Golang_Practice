@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        .container{
+            width: 50%;
+            height: 50%;
+            background-color: rgb(192, 192, 197);
+        }
+        form{
+            display: block;
+            padding: 20px;
+        }
+        input{
+            display: block;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>Enter login credentials</h1>
+<div class="container">
+    <form  target="_self"  method="POST" action="/valid" >
+        <label for="name">Username: </label>
+        <input type="text" name="username" id="name"><br>
+        <label for="pwd">Password: </label>
+        <input type="password" name="password" id="pwd"><br>
+        <input type="submit" value="Login">
+    </form>
+    <br><br>
+    {{if .}}
+        {{.}}
+    {{end}}
+    <!--<ul>
+    <li>Id: {{.ID}}</li>
+    <li>Name: {{.Username}}</li>
+    <li>Password: ${{.Password}}</li>
+    <li>Email: {{.Email}}</li>
+</ul>-->
+</div>
+</body>
+</html>
