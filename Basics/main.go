@@ -5,8 +5,8 @@ import (
 	//"github.com/go_practice/mascot"
 	//"path"
 	//"os"
-	//"unicode/utf8"
 	"strings"
+	"unicode/utf8"
 )
 
 // "path"
@@ -115,9 +115,10 @@ func main() {
 	/*name := os.Args[1]
 	s := "Hello" + name + `How are you!`
 	fmt.Println(s)*/
-	/*input := "İNANÇ"
+	input := "İNANÇ"
 	l := utf8.RuneCountInString(input)
-	fmt.Println(l)*/
+	fmt.Println(l)
+	fmt.Println("Length: ", len(input))
 	/*s := os.Args[1]
 	sl := strings.ToLower(s)
 	fmt.Println(sl)*/

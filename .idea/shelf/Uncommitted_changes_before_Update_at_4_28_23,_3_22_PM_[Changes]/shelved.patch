@@ -1,0 +1,964 @@
+Index: challenge_prac/guessGame.go
+===================================================================
+diff --git a/challenge_prac/guessGame.go b/challenge_prac/guessGame.go
+deleted file mode 100644
+--- a/challenge_prac/guessGame.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,43 +0,0 @@
+-package main
+-
+-import (
+-	"bufio"
+-	"fmt"
+-	"log"
+-	"math/rand"
+-	"os"
+-	"strconv"
+-	"strings"
+-	"time"
+-)
+-
+-func main() {
+-	randSecs := time.Now().Unix()
+-	rand.Seed(randSecs)
+-	randInt := rand.Intn(51)
+-	for true {
+-		fmt.Print("Guess a number between 0 and 50")
+-		fmt.Printf("Random number is: %d", randInt)
+-		reader := bufio.NewReader(os.Stdin)
+-		guess, err := reader.ReadString('\n')
+-		if err != nil {
+-			log.Fatal(err)
+-		}
+-
+-		guess = strings.TrimSpace(guess)
+-		iguess, e := strconv.Atoi(guess)
+-
+-		if e != nil {
+-			log.Fatal(e)
+-		}
+-		if iguess > randInt {
+-			fmt.Println("Choose a lower number")
+-		} else if iguess < randInt {
+-			fmt.Println("Choose a larger number")
+-		} else {
+-			fmt.Println("Correct guess")
+-			break
+-		}
+-
+-	}
+-}
+Index: challenge_prac/validate_user.go
+===================================================================
+diff --git a/challenge_prac/validate_user.go b/challenge_prac/validate_user.go
+deleted file mode 100644
+--- a/challenge_prac/validate_user.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,31 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strings"
+-)
+-
+-const (
+-	usage = "Usage: [username] [password]"
+-	user  = "Jack"
+-	pwd   = "1888"
+-	user1 = "Heema"
+-	pwd1  = "1989"
+-)
+-
+-func main() {
+-	input := os.Args
+-	if len(input) != 3 {
+-		fmt.Println(usage)
+-		return
+-	}
+-	u, p := os.Args[1], os.Args[2]
+-	if u != strings.ToLower(user) {
+-		fmt.Printf("\nAccess denied for %s", u)
+-	} else if p != pwd {
+-		fmt.Printf("\nInvalid password for %s", u)
+-	} else {
+-		fmt.Printf("\nAccess granted to user %q", u)
+-	}
+-}
+Index: challenge_prac/oddEven.go
+===================================================================
+diff --git a/challenge_prac/oddEven.go b/challenge_prac/oddEven.go
+deleted file mode 100644
+--- a/challenge_prac/oddEven.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,27 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-)
+-
+-func main() {
+-	inp := os.Args
+-	if len(inp) != 2 {
+-		fmt.Println("Please enter a number")
+-		return
+-	}
+-	no, err := strconv.Atoi(inp[1])
+-	if err != nil {
+-		fmt.Printf("%s is not a number", inp[1])
+-	} else {
+-		if no%8 == 0 {
+-			fmt.Printf("\nIt is an even number divisible by 8")
+-		} else if no%2 == 0 {
+-			fmt.Printf("\nIt is an even number")
+-		} else {
+-			fmt.Printf("\nIt is an odd number")
+-		}
+-	}
+-}
+Index: challenge_prac/functions.go
+===================================================================
+diff --git a/challenge_prac/functions.go b/challenge_prac/functions.go
+deleted file mode 100644
+--- a/challenge_prac/functions.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,20 +0,0 @@
+-package main
+-import(
+-	"fmt"
+-)
+-func main(){
+-	result:= add(4,5)
+-	fmt.Println(result)
+-	prores,_:= proadder(2,3,4)
+-	fmt.Println(prores)
+-}
+-func add(no1 int,no2 int)int{
+-	return no1+no2
+-}
+-func proadder(values ...int)(int,string){
+-	total:=0
+-	for _,val:= range values{
+-		total+=val
+-	}
+-	return total,"hello"
+-}
+\ No newline at end of file
+Index: challenge_prac/employee.go
+===================================================================
+diff --git a/challenge_prac/employee.go b/challenge_prac/employee.go
+deleted file mode 100644
+--- a/challenge_prac/employee.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,40 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-)
+-
+-type Salary struct {
+-	Basic, HRA, DA float64
+-}
+-type Employee struct {
+-	Firstname, Lastname, Email string
+-	Age                        int
+-	MonthlySalary              []Salary
+-}
+-
+-func emp_info(e Employee) string {
+-	fmt.Println("Employee details are: ")
+-	fmt.Printf("\nEmployee full name is %v %v\n", e.Firstname, e.Lastname)
+-	fmt.Printf("\nEmployee email is %v", e.Email)
+-	fmt.Printf("\nEmployee age is %v", e.Age)
+-	fmt.Printf("\nEmployee monthly salary is: ")
+-	for _, value := range e.MonthlySalary {
+-		fmt.Printf("\n---------------------\n")
+-		fmt.Println(value.Basic)
+-		fmt.Println(value.HRA)
+-		fmt.Println(value.DA)
+-	}
+-	return "----------------------------"
+-}
+-func main() {
+-	emp1 := []Employee{
+-		{"Heema", "Goratela", "heema@simform", 20,
+-			[]Salary{{
+-				20000, 500, 200}, {4000, 200, 600}}},
+-		{"Dhatri", "Goratela", "dhatrig@", 16, []Salary{
+-			{20000, 500, 700}, {5000, 600, 200}}}}
+-	for _, val := range emp1 {
+-		fmt.Println(emp_info(val))
+-	}
+-}
+Index: challenge_prac/pointers.go
+===================================================================
+diff --git a/challenge_prac/pointers.go b/challenge_prac/pointers.go
+deleted file mode 100644
+--- a/challenge_prac/pointers.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,14 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-)
+-
+-func main() {
+-	var ptr *int
+-	fmt.Print("Value of pointer is: ", ptr)
+-	no := 7
+-	var rptr = &no
+-	fmt.Println("Address of pointer is: ", rptr)
+-	fmt.Println("Value of pointer is: ", *rptr)
+-}
+Index: challenge_prac/runes.go
+===================================================================
+diff --git a/challenge_prac/runes.go b/challenge_prac/runes.go
+deleted file mode 100644
+--- a/challenge_prac/runes.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,17 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"time"
+-	"unicode/utf8"
+-)
+-
+-func main() {
+-	rStr := "ajsjdjf"
+-	fmt.Println("Rune count: ", utf8.RuneCountInString(rStr))
+-	for i, rvalue := range rStr {
+-		fmt.Printf("%d : %#U : %c\n", i, rvalue, rvalue)
+-	}
+-	fmt.Println(time.Now().Year(), time.Now().Month(), time.Now().Day())
+-	fmt.Println(time.Now().Hour(), time.Now().Minute(), time.Now().Second())
+-}
+Index: challenge_prac/monthDays.go
+===================================================================
+diff --git a/challenge_prac/monthDays.go b/challenge_prac/monthDays.go
+deleted file mode 100644
+--- a/challenge_prac/monthDays.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,52 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-	"strings"
+-)
+-
+-func main() {
+-	inp := os.Args
+-	if len(inp) != 3 {
+-		fmt.Println("Usage: [year] [month]")
+-		fmt.Println("Please enter a year and month name")
+-		return
+-	}
+-	year, err := strconv.Atoi(inp[1])
+-	if err != nil {
+-		fmt.Printf("%q is not a year", inp[1])
+-	} else {
+-
+-		if strings.ToLower(inp[2]) == "january" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "february" {
+-			if year%4 == 0 {
+-				fmt.Printf("%q has 29 days", inp[2])
+-			} else {
+-				fmt.Printf("%q has 28 days", inp[2])
+-			}
+-		} else if strings.ToLower(inp[2]) == "march" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "april" {
+-			fmt.Printf("%q has 30 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "may" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "june" {
+-			fmt.Printf("%q has 30 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "july" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "august" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "september" {
+-			fmt.Printf("%q has 30 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "october" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "november" {
+-			fmt.Printf("%q has 30 days", inp[2])
+-		} else if strings.ToLower(inp[2]) == "december" {
+-			fmt.Printf("%q has 31 days", inp[2])
+-		}
+-	}
+-}
+Index: challenge_prac/slices.go
+===================================================================
+diff --git a/challenge_prac/slices.go b/challenge_prac/slices.go
+deleted file mode 100644
+--- a/challenge_prac/slices.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,38 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"reflect"
+-	"sort"
+-)
+-func main(){
+-	var l1 = [4]int{1,2,3,4} //array
+-	fmt.Println(l1,reflect.TypeOf(l1))
+-	//l1= append(l1,6,7)// hence you cannot append in array becoz it has fixed size
+-	var l2 = []int{2,3,5,6} // here the size of array not defined so its a slice and use append in slice only
+-	fmt.Println(l2)
+-	l2= append(l2,8,9)
+-	fmt.Println(l2)
+-	//defining slice using make()--or allocating memory using make
+-	 l3:=make([]int,2)
+-	 l3[0]=1
+-	 l3[1]=2
+-	 //here using make we cane use append--this make reallocates the memory
+-	 l4:= make([]int,4)
+-	 l4[0]=34
+-	 l4[1]=4
+-	 l4[2]=15
+-	 l4[3]=2
+-	 l4= append(l4,67,89)
+-	 l4= append(l4[1:])
+-	 //in slice we can use sort method to sort the slice. we cant use this in array
+-	sort.Ints(l4)
+-	fmt.Println(l4)
+-	fmt.Println(sort.IntsAreSorted(l4))
+-	fmt.Println(sort.IntsAreSorted(l2))// here if slice is bydefault sorted then also it will give true
+-	//remove value from slice based on index in golang
+-	index:=2
+-	l2= append(l2[:index],l2[index+1:]...)
+-	fmt.Println(l2)
+-
+-}
+\ No newline at end of file
+Index: challenge_prac/timeRandom.go
+===================================================================
+diff --git a/challenge_prac/timeRandom.go b/challenge_prac/timeRandom.go
+deleted file mode 100644
+--- a/challenge_prac/timeRandom.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,21 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"math/rand"
+-	"time"
+-)
+-
+-func main() {
+-	t := time.Now()
+-	rand.Seed(t.UnixNano())
+-	guess := 10
+-	for i := 0; i != guess; {
+-		i = rand.Intn(guess + 1)
+-		fmt.Printf("%d", i)
+-	}
+-	num := 7
+-	ptr := &num
+-	*ptr += 1
+-	fmt.Println(num)
+-}
+Index: challenge_prac/methods.go
+===================================================================
+diff --git a/challenge_prac/methods.go b/challenge_prac/methods.go
+deleted file mode 100644
+--- a/challenge_prac/methods.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,19 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-)
+-
+-type User struct {
+-	Name   string
+-	status bool
+-	email  string
+-}
+-
+-func (u User) getDetails() {
+-	fmt.Println(u.Name, u.status, u.email)
+-}
+-func main() {
+-	user1 := User{"Heema", true, "heema@simform"}
+-	user1.getDetails()
+-}
+Index: challenge_prac/feetToMeters.go
+===================================================================
+diff --git a/challenge_prac/feetToMeters.go b/challenge_prac/feetToMeters.go
+deleted file mode 100644
+--- a/challenge_prac/feetToMeters.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,21 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-)
+-
+-func main() {
+-	inp := os.Args
+-	if len(inp) == 2 {
+-		feet, err := strconv.Atoi(os.Args[1])
+-		meter := 0.
+-		if err != nil {
+-			fmt.Printf("ERROR: PLease enter a number")
+-			return
+-		}
+-		meter = (float64(feet) * 0.3048)
+-		fmt.Printf("%d feet is equal to %f meters", feet, meter)
+-	}
+-}
+Index: challenge_prac/richter.go
+===================================================================
+diff --git a/challenge_prac/richter.go b/challenge_prac/richter.go
+deleted file mode 100644
+--- a/challenge_prac/richter.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,39 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-)
+-
+-func main() {
+-	inp := os.Args
+-	if len(inp) != 2 {
+-		fmt.Println("Give me the magnitude of earthquake")
+-		return
+-	}
+-	switch m, _ := strconv.ParseFloat(inp[1], 64); {
+-	case m <= 2:
+-		fmt.Println("minor")
+-	case m > 2.0 && m <= 3.0:
+-		fmt.Println("micro")
+-	case m > 3.0 && m <= 4.0:
+-		fmt.Println("very minor")
+-	case m > 4.0 && m <= 5.0:
+-		fmt.Println("minor")
+-	case m > 5.0 && m <= 6.0:
+-		fmt.Println("light")
+-	case m > 6.0 && m <= 7.0:
+-		fmt.Println("moderate")
+-	case m > 7.0 && m <= 8.0:
+-		fmt.Println("strong")
+-	case m > 8.0 && m <= 9.0:
+-		fmt.Println("major")
+-	case m > 9.0 && m < 10.0:
+-		fmt.Println("great")
+-	case m >= 10.0:
+-		fmt.Println("massive")
+-	default:
+-		fmt.Println("Icouldn't get that, sorry")
+-	}
+-}
+Index: challenge_prac/structs.go
+===================================================================
+diff --git a/challenge_prac/structs.go b/challenge_prac/structs.go
+deleted file mode 100644
+--- a/challenge_prac/structs.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,21 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"reflect"
+-)
+-
+-type User struct {
+-	Name   string
+-	Email  string
+-	status bool
+-	Age    int
+-}
+-
+-func main() {
+-	heema := User{"Heema", "heema@simform", true, 20}
+-	fmt.Println(heema)
+-	fmt.Printf("Heema's details are: %+v\n", heema)
+-	fmt.Printf("User name is %v and status is %v\n", heema.Name, heema.status)
+-	fmt.Println(reflect.TypeOf(heema))
+-}
+Index: challenge_prac/validate_multi_user.go
+===================================================================
+diff --git a/challenge_prac/validate_multi_user.go b/challenge_prac/validate_multi_user.go
+deleted file mode 100644
+--- a/challenge_prac/validate_multi_user.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,30 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-)
+-
+-const (
+-	usage = "Usage: [username] [password]"
+-	user  = "Jack"
+-	pwd   = "1888"
+-	user1 = "Heema"
+-	pwd1  = "1989"
+-)
+-
+-func main() {
+-	input := os.Args
+-	if len(input) != 3 {
+-		fmt.Println(usage)
+-		return
+-	}
+-	u, p := os.Args[1], os.Args[2]
+-	if u != user && u != user1 {
+-		fmt.Printf("Access denied for %q user", u)
+-	} else if p == pwd && u == user || p == pwd1 && u == user1 {
+-		fmt.Printf("Access granted for %q user", u)
+-	} else {
+-		fmt.Printf("INavlid password for %q user", u)
+-	}
+-}
+Index: challenge_prac/tickets.go
+===================================================================
+diff --git a/challenge_prac/tickets.go b/challenge_prac/tickets.go
+deleted file mode 100644
+--- a/challenge_prac/tickets.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,35 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-)
+-
+-var (
+-	age int
+-	err error
+-)
+-
+-func main() {
+-	inp := os.Args
+-	if len(inp) != 2 {
+-		fmt.Println("PLease enter user age")
+-		return
+-	}
+-	if age, err = strconv.Atoi(inp[1]); err != nil {
+-		fmt.Printf("Please enter a number")
+-		return
+-	} else {
+-		if age >= 17 {
+-			fmt.Println("R-Rated")
+-		} else if age >= 13 && age <= 17 {
+-			fmt.Println("PG-13")
+-		} else if age <= 0 {
+-			fmt.Println("PLease enter positive number")
+-		} else {
+-			fmt.Println("PG-Rated")
+-		}
+-	}
+-
+-}
+Index: challenge_prac/table.go
+===================================================================
+diff --git a/challenge_prac/table.go b/challenge_prac/table.go
+deleted file mode 100644
+--- a/challenge_prac/table.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,51 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"os"
+-	"strconv"
+-)
+-
+-func main() {
+-	inp := os.Args
+-
+-	if len(inp) != 2 {
+-		fmt.Printf("Wrong size")
+-		return
+-	}
+-	tsize, _ := strconv.Atoi(inp[1])
+-	if tsize < 0 {
+-		fmt.Printf("Wrong size")
+-	} else {
+-		fmt.Printf("%5s", "X")
+-		for i := 0; i <= tsize; i++ {
+-			fmt.Printf("%5d", i)
+-		}
+-		fmt.Println()
+-		for i := 0; i <= tsize; i++ {
+-			fmt.Printf("%5d", i)
+-			for j := 0; j <= tsize; j++ {
+-				fmt.Printf("%5d", i*j)
+-			}
+-			fmt.Println()
+-		}
+-	}
+-	var (
+-		sum int
+-		i   int = 1
+-	)
+-	for {
+-		if i > 10 {
+-			break
+-		}
+-		fmt.Printf("%d", i)
+-		sum += i
+-		if i == 10 {
+-			i++
+-			continue
+-		}
+-		fmt.Print("+")
+-		i++
+-	}
+-	fmt.Println("= ", sum)
+-}
+Index: challenge_prac/defer.go
+===================================================================
+diff --git a/challenge_prac/defer.go b/challenge_prac/defer.go
+deleted file mode 100644
+--- a/challenge_prac/defer.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,19 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-)
+-
+-func main() {
+-	defer fmt.Println("one")
+-	defer fmt.Println("two")
+-	defer fmt.Println("three")
+-	fmt.Println("Hello")
+-	printDefer()
+-	//defer works on LIFO characteristics
+-}
+-func printDefer() {
+-	for i := 0; i < 5; i++ {
+-		defer fmt.Println(i)
+-	}
+-}
+Index: challenge_prac/array.go
+===================================================================
+diff --git a/challenge_prac/array.go b/challenge_prac/array.go
+deleted file mode 100644
+--- a/challenge_prac/array.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,18 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-)
+-
+-func main() {
+-	var arr [4]int
+-	arr[0] = 1
+-	arr[1] = 2
+-	fmt.Println(arr)
+-	var arr1 [4]int = [4]int{24, 4, 5, 6}
+-	fmt.Print(arr1)
+-	var strArr = [4]string{}
+-	fmt.Print(strArr)
+-	var arr2,arr3 [4]int=[4]int{1,2,3,4},[4]int{2,3,4,5}
+-	arr5:=[4]int
+-}
+Index: challenge_prac/maps.go
+===================================================================
+diff --git a/challenge_prac/maps.go b/challenge_prac/maps.go
+deleted file mode 100644
+--- a/challenge_prac/maps.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,22 +0,0 @@
+-package main
+-import (
+-	"fmt"
+-	"reflect"
+-)
+-func main(){
+-	//maps and slice can be declared using make--maps are key-valued
+-	map1:= make(map[string]string)
+-	map1["JS"]="Javascript"
+-	map1["PY"]="Python"
+-	map1["Go"]="Golang"
+-	map1["RB"]="Ruby"
+-	fmt.Println(map1,reflect.TypeOf(map1))
+-	fmt.Println(map1["JS"])
+-	//delete can be used in both map and slice
+-	delete(map1,"Go")
+-	fmt.Println(map1)
+-	//looping in maps
+-	for key,value := range map1{
+-		fmt.Println(key,value)
+-	}
+-}
+\ No newline at end of file
+Index: challenge_prac/main.go
+===================================================================
+diff --git a/challenge_prac/main.go b/challenge_prac/main.go
+deleted file mode 100644
+--- a/challenge_prac/main.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,138 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	//"github.com/go_practice/mascot"
+-	//"path"
+-	//"os"
+-	//"unicode/utf8"
+-	"strings"
+-)
+-
+-// "path"
+-// "os"
+-//var Args []string
+-
+-func main() {
+-	//fmt.Println(mascot.GetName())
+-	//var  file string
+-	//dir, file = path.Split("js/main.js")
+-	//fmt.Println("Directory name is: ", dir)
+-
+-	//_, file := path.Split("css/main.css")
+-	//fmt.Println("File name is: ", file)
+-	/*speed := 5
+-	force := 5.23
+-	speed = int(float64(speed) * force)
+-	fmt.Println("Speed is: ", speed)*/
+-
+-	//var Args []string //this args is a string slice which can store multiple string values. HERE STRING VALUES CAN BE ACCESSED USING INDEXING
+-	//here args is a variable and it stores command line arguments and its path
+-	/*fmt.Printf("%#v\n", os.Args)
+-	fmt.Println("Path of Args: ", os.Args[0])
+-	fmt.Println("1st argument: ", os.Args[1])
+-	fmt.Println("2nd argument: ", os.Args[2])
+-	fmt.Println("Length of arguments is: ", len(os.Args))*/
+-
+-	/*color := "blue"
+-	color = "red"*/
+-	/*color := "green"
+-	color = "Dark" + color*/
+-	/*n := 0.
+-	n = 3.14 * 2
+-	fmt.Println(n)*/
+-	/*width, height := 5, 6
+-	var perimeter int
+-	perimeter = 2 * (width + height)*/
+-	/*var (
+-		lang    string
+-		version int
+-	)
+-	lang, version = "Go", 2*/
+-	/*var (
+-		planet string
+-		isTrue bool
+-		temp   float64
+-	)
+-	planet, isTrue, temp = "Mars", true, 13.8
+-	fmt.Println("It is cool on ", planet)
+-	fmt.Println("Value is ", isTrue)
+-	fmt.Println("Temperature is: ", temp, " degrees")*/
+-	/*mascot.Hello()
+-	var string1 string = "heema"
+-	string1 = " dhatri"
+-	fmt.Println(string1)*/
+-	/*fmt.Println(multi())
+-	_, int2 := multi()
+-	fmt.Println(int2)*/
+-	/*color, color1 := "red", "blue"
+-	color, color1 = "orange", "green"
+-	fmt.Println(color, color1)*/
+-	/*red, blue := "red", "blue"
+-	red, blue = blue, red
+-	fmt.Println(red, blue)*/
+-	/*dir, _ := path.Split("secret/file.txt")
+-	fmt.Println("The directory of file is: ", dir)*/
+-	/*a, b := 10, 5.5
+-	fmt.Println(float64(a) + b)*/
+-	/*a, b := 10, 5.5
+-	a = int(b)
+-	fmt.Println(float64(a) + b)*/
+-	/*age := 2
+-	fmt.Println(float64(7.5) + float64(age))*/
+-	/*min := int8(127)
+-	max := int16(1000)
+-	fmt.Println(max + int16(min))*/
+-
+-	/*count := 0
+-	fmt.Printf("%#v\n", os.Args)
+-	count = len(os.Args)
+-	fmt.Printf("There are %d names", count)*/
+-	//fmt.Printf("Hi %s ", os.Args[1])
+-	//fmt.Println("hOW ARE YOU!")
+-	/*var s string
+-	s = "<html>\n\t<body>\t\"Hello\"\n\t</body>\n</html>"
+-	s = `	<html>
+-		<body> "hello" </body>
+-	</html>`
+-	s = "c:\\heema\\downloads"
+-	s = `c:\heema\downlaods`
+-
+-	fmt.Println(s)*/
+-	/*var s string
+-	msg := os.Args[1]
+-	l := len(msg)
+-	s = msg + strings.Repeat("!", l)
+-	fmt.Println(s)*/
+-	/*json := `{
+-		"Items": [{
+-						"Item": {
+-								"name": "Teddy Bear"
+-						}
+-				}]
+-	}`
+-	fmt.Println(json)*/
+-	/*name := os.Args[1]
+-	s := "Hello" + name + `How are you!`
+-	fmt.Println(s)*/
+-	/*input := "İNANÇ"
+-	l := utf8.RuneCountInString(input)
+-	fmt.Println(l)*/
+-	/*s := os.Args[1]
+-	sl := strings.ToLower(s)
+-	fmt.Println(sl)*/
+-	/*msg := `
+-
+-		The weather looks good.
+-	I should go and play.
+-		`
+-		trim := strings.Trim(msg, "\n\t")
+-		fmt.Println(trim)*/
+-	msg := "Hello        "
+-	tirm := strings.TrimRight(msg, " ")
+-	fmt.Println(len(tirm))
+-}
+-
+-/*func multi() (int, int) {
+-	return 5, 4
+-}*/
+Index: challenge_prac/strings.go
+===================================================================
+diff --git a/challenge_prac/strings.go b/challenge_prac/strings.go
+deleted file mode 100644
+--- a/challenge_prac/strings.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ /dev/null	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
+@@ -1,21 +0,0 @@
+-package main
+-
+-import (
+-	"fmt"
+-	"strings"
+-)
+-
+-func main() {
+-	s1 := "A word"
+-	s2 := strings.NewReplacer("A", "Another").Replace(s1)
+-	fmt.Println("Replaced string is: ", s2)
+-	fmt.Println("Contains ", strings.Contains(s2, "Another"))
+-	fmt.Println("To lower: ", strings.ToLower(s2))
+-	fmt.Println("To upper: ", strings.ToUpper(s2))
+-	fmt.Println("Has prefix: ", strings.HasPrefix("LavendarHaze", "Lavendar"))
+-	fmt.Println("Has suffix: ", strings.HasSuffix("LavendarHaze", "Haze"))
+-	s3 := "\nabcc\n"
+-	fmt.Println("Remove space: ", strings.TrimSpace(s3))
+-	fmt.Println("INdex of: ", strings.Index(s2, "o"))
+-	fmt.Println("Replaced string is: ", strings.Replace(s2, "o", "0", -1))
+-}
+Index: Basics/main.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\nimport (\n\t\"fmt\"\n\t//\"github.com/go_practice/mascot\"\n\t//\"path\"\n\t//\"os\"\n\t//\"unicode/utf8\"\n\t\"strings\"\n)\n\n// \"path\"\n// \"os\"\n//var Args []string\n\nfunc main() {\n\t//fmt.Println(mascot.GetName())\n\t//var  file string\n\t//dir, file = path.Split(\"js/main.js\")\n\t//fmt.Println(\"Directory name is: \", dir)\n\n\t//_, file := path.Split(\"css/main.css\")\n\t//fmt.Println(\"File name is: \", file)\n\t/*speed := 5\n\tforce := 5.23\n\tspeed = int(float64(speed) * force)\n\tfmt.Println(\"Speed is: \", speed)*/\n\n\t//var Args []string //this args is a string slice which can store multiple string values. HERE STRING VALUES CAN BE ACCESSED USING INDEXING\n\t//here args is a variable and it stores command line arguments and its path\n\t/*fmt.Printf(\"%#v\\n\", os.Args)\n\tfmt.Println(\"Path of Args: \", os.Args[0])\n\tfmt.Println(\"1st argument: \", os.Args[1])\n\tfmt.Println(\"2nd argument: \", os.Args[2])\n\tfmt.Println(\"Length of arguments is: \", len(os.Args))*/\n\n\t/*color := \"blue\"\n\tcolor = \"red\"*/\n\t/*color := \"green\"\n\tcolor = \"Dark\" + color*/\n\t/*n := 0.\n\tn = 3.14 * 2\n\tfmt.Println(n)*/\n\t/*width, height := 5, 6\n\tvar perimeter int\n\tperimeter = 2 * (width + height)*/\n\t/*var (\n\t\tlang    string\n\t\tversion int\n\t)\n\tlang, version = \"Go\", 2*/\n\t/*var (\n\t\tplanet string\n\t\tisTrue bool\n\t\ttemp   float64\n\t)\n\tplanet, isTrue, temp = \"Mars\", true, 13.8\n\tfmt.Println(\"It is cool on \", planet)\n\tfmt.Println(\"Value is \", isTrue)\n\tfmt.Println(\"Temperature is: \", temp, \" degrees\")*/\n\t/*mascot.Hello()\n\tvar string1 string = \"heema\"\n\tstring1 = \" dhatri\"\n\tfmt.Println(string1)*/\n\t/*fmt.Println(multi())\n\t_, int2 := multi()\n\tfmt.Println(int2)*/\n\t/*color, color1 := \"red\", \"blue\"\n\tcolor, color1 = \"orange\", \"green\"\n\tfmt.Println(color, color1)*/\n\t/*red, blue := \"red\", \"blue\"\n\tred, blue = blue, red\n\tfmt.Println(red, blue)*/\n\t/*dir, _ := path.Split(\"secret/file.txt\")\n\tfmt.Println(\"The directory of file is: \", dir)*/\n\t/*a, b := 10, 5.5\n\tfmt.Println(float64(a) + b)*/\n\t/*a, b := 10, 5.5\n\ta = int(b)\n\tfmt.Println(float64(a) + b)*/\n\t/*age := 2\n\tfmt.Println(float64(7.5) + float64(age))*/\n\t/*min := int8(127)\n\tmax := int16(1000)\n\tfmt.Println(max + int16(min))*/\n\n\t/*count := 0\n\tfmt.Printf(\"%#v\\n\", os.Args)\n\tcount = len(os.Args)\n\tfmt.Printf(\"There are %d names\", count)*/\n\t//fmt.Printf(\"Hi %s \", os.Args[1])\n\t//fmt.Println(\"hOW ARE YOU!\")\n\t/*var s string\n\ts = \"<html>\\n\\t<body>\\t\\\"Hello\\\"\\n\\t</body>\\n</html>\"\n\ts = `\t<html>\n\t\t<body> \"hello\" </body>\n\t</html>`\n\ts = \"c:\\\\heema\\\\downloads\"\n\ts = `c:\\heema\\downlaods`\n\n\tfmt.Println(s)*/\n\t/*var s string\n\tmsg := os.Args[1]\n\tl := len(msg)\n\ts = msg + strings.Repeat(\"!\", l)\n\tfmt.Println(s)*/\n\t/*json := `{\n\t\t\"Items\": [{\n\t\t\t\t\t\t\"Item\": {\n\t\t\t\t\t\t\t\t\"name\": \"Teddy Bear\"\n\t\t\t\t\t\t}\n\t\t\t\t}]\n\t}`\n\tfmt.Println(json)*/\n\t/*name := os.Args[1]\n\ts := \"Hello\" + name + `How are you!`\n\tfmt.Println(s)*/\n\t/*input := \"İNANÇ\"\n\tl := utf8.RuneCountInString(input)\n\tfmt.Println(l)*/\n\t/*s := os.Args[1]\n\tsl := strings.ToLower(s)\n\tfmt.Println(sl)*/\n\t/*msg := `\n\n\t\tThe weather looks good.\n\tI should go and play.\n\t\t`\n\t\ttrim := strings.Trim(msg, \"\\n\\t\")\n\t\tfmt.Println(trim)*/\n\tmsg := \"Hello        \"\n\ttirm := strings.TrimRight(msg, \" \")\n\tfmt.Println(len(tirm))\n}\n\n/*func multi() (int, int) {\n\treturn 5, 4\n}*/\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Basics/main.go b/Basics/main.go
+--- a/Basics/main.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ b/Basics/main.go	(date 1682674921894)
+@@ -5,8 +5,8 @@
+ 	//"github.com/go_practice/mascot"
+ 	//"path"
+ 	//"os"
+-	//"unicode/utf8"
+ 	"strings"
++	"unicode/utf8"
+ )
+ 
+ // "path"
+@@ -115,9 +115,10 @@
+ 	/*name := os.Args[1]
+ 	s := "Hello" + name + `How are you!`
+ 	fmt.Println(s)*/
+-	/*input := "İNANÇ"
++	input := "İNANÇ"
+ 	l := utf8.RuneCountInString(input)
+-	fmt.Println(l)*/
++	fmt.Println(l)
++	fmt.Println("Length: ", len(input))
+ 	/*s := os.Args[1]
+ 	sl := strings.ToLower(s)
+ 	fmt.Println(sl)*/
+Index: Basics/runes.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\nimport (\n\t\"fmt\"\n\t\"time\"\n\t\"unicode/utf8\"\n)\n\nfunc main() {\n\trStr := \"ajsjdjf\"\n\tfmt.Println(\"Rune count: \", utf8.RuneCountInString(rStr))\n\tfor i, rvalue := range rStr {\n\t\tfmt.Printf(\"%d : %#U : %c\\n\", i, rvalue, rvalue)\n\t}\n\tfmt.Println(time.Now().Year(), time.Now().Month(), time.Now().Day())\n\tfmt.Println(time.Now().Hour(), time.Now().Minute(), time.Now().Second())\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Basics/runes.go b/Basics/runes.go
+--- a/Basics/runes.go	(revision 707167cdd7cc71dd8b2e7779fca536e37d40d7d6)
++++ b/Basics/runes.go	(date 1682675417049)
+@@ -2,16 +2,25 @@
+ 
+ import (
+ 	"fmt"
++	"reflect"
+ 	"time"
+ 	"unicode/utf8"
+ )
+ 
+ func main() {
+ 	rStr := "ajsjdjf"
++	fmt.Println(reflect.TypeOf(rStr))
++	input := "İNANÇ"
++	fmt.Println(reflect.TypeOf(input))
++	fmt.Println("Input length: ", len((input)))
++	fmt.Println("Rune count: ", utf8.RuneCountInString(input))
+ 	fmt.Println("Rune count: ", utf8.RuneCountInString(rStr))
+-	for i, rvalue := range rStr {
++	for i, rvalue := range input {
+ 		fmt.Printf("%d : %#U : %c\n", i, rvalue, rvalue)
+ 	}
++	a := 5
++	fmt.Printf("\n%U\n", a)
++	fmt.Printf("\n%#U\n", a)
+ 	fmt.Println(time.Now().Year(), time.Now().Month(), time.Now().Day())
+ 	fmt.Println(time.Now().Hour(), time.Now().Minute(), time.Now().Second())
+ }
