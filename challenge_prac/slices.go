@@ -24,6 +24,7 @@ func main(){
 	 l4[2]=15
 	 l4[3]=2
 	 l4= append(l4,67,89)
+	//this append will append into l4 list and overwrite them with starting from index 1 to last. so it will remove 34 from list
 	 l4= append(l4[1:])
 	 //in slice we can use sort method to sort the slice. we cant use this in array
 	sort.Ints(l4)
