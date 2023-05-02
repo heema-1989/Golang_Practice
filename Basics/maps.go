@@ -25,4 +25,15 @@ func main() {
 	str := "1010"
 	intStr, err := strconv.ParseInt(str, 8, 32) //here 2 means the mentioned string is converted to binary
 	fmt.Println(intStr, err, reflect.TypeOf(intStr))
+	map2 := map[string]int{}
+	//map2["heema"] = 6566
+	fmt.Println(map2)
+	var map3 map[string]int = map[string]int{}
+	map3["djff"] = 555
+	fmt.Println(map3)
+	map4 := new(map[string]int)
+	fmt.Println(map4, reflect.TypeOf(map4))
+	var map5 = map[string]int{}
+	map5["sjdd"] = 777
+	fmt.Println(map5)
 }
